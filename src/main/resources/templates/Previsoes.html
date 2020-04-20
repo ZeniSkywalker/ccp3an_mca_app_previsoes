@@ -8,6 +8,16 @@
 <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet" />
 </head>
 <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/Previsoes">Previsões</a></li>
+            <li><a href="/Cidades">Cidades</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 	<div class="panel panel-default" style="margin: 10px">
 		<div class="panel-heading">
 			<h1 class="panel-title">Previsões</h1>
@@ -17,12 +27,13 @@
 				<select class="form-control" th:field="*{diaSemana}">
 			    	<option th:each="dia : ${diasSemana}" th:value="${dia.id}" th:text="${dia.diaSemana}"></option>
 			    </select>
+			    <select class="form-control" th:field="*{cidade}">
+			    	<option th:each="cid : ${cidades}" th:value="${cid.id}" th:text="${cid.nome}"></option>
+			    </select>
 				<input type="text" class="form-control" placeholder="Temp. Min." th:field="*{tempMin}" pattern="[0-9]*\.?[0-9]*" title="Insira apenas números e divididos por ponto (.)"/>
 				<input type="text" class="form-control" placeholder="Temp. Max." th:field="*{tempMax}" pattern="[0-9]*\.?[0-9]*" title="Insira apenas números e divididos por ponto (.)"/>
 				<input type="number" class="form-control" placeholder="Umidade" th:field="*{umidade}" title="Umidade. Insira apenas números" />
 				<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}"/>
-				<input type="text" class="form-control" placeholder="Latitude" th:field="*{latitude}" pattern="[0-9]*\.?[0-9]*" title="Insira apenas números e divididos por ponto (.)"/>
-				<input type="text" class="form-control" placeholder="Longitude" th:field="*{longitude}" pattern="[0-9]*\.?[0-9]*" title="Insira apenas números e divididos por ponto (.)"/>
 				<button type="submit" class="btn btn-primary">Adicionar</button>
 			</div>
 		</form>
@@ -35,6 +46,7 @@
 						<th>Temp. Max.</th>
 						<th>Umidade</th>
 						<th>Descrição</th>
+						<th>Cidade</th>
 						<th>Latitude</th>
 						<th>Longitude</th>
 						<th>Data/Hora Cadastro</th>
@@ -47,8 +59,9 @@
 						<td th:text="${previsao.tempMax + '°C'}"></td>
 						<td th:text="${previsao.umidade + '%'}"></td>
 						<td th:text="${previsao.descricao}"></td>
-						<td th:text="${previsao.latitude}"></td>
-						<td th:text="${previsao.longitude}"></td>
+						<td th:text="${previsao.cidade.nome}"></td>
+						<td th:text="${previsao.cidade.latitude}"></td>
+						<td th:text="${previsao.cidade.longitude}"></td>
 						<td th:text="${#dates.format(previsao.dataHora, 'dd/MM/yyyy hh:mm:ss')}"></td>
 					</tr>
 				</tbody>
